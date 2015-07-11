@@ -28,7 +28,7 @@ class db_manager
 		return $r;
 	}
 
-	function get($table, $col="*", $where="")
+	function get($table, $col="*", $where=array())
 	{
 		$sql = "SELECT ";
 		$sql .= $col;
@@ -36,16 +36,25 @@ class db_manager
 		$sql .= $table;
 
 		$sql .= " WHERE 1=1";
+		if(is_array($where) && count($where) > 0)
+		{
+			$condition = "";
+			foreach ($where as $col => $value) 
+			{
+				$condition .= "$col = '$value'";
+			}
+			$sql .= " AND $condition";
+		}
 
-		if($where != "")
-		{
-			$sql .= " AND $where";
-		}
+		echo $sql;
+
 		$res = $this->query($sql);
-		while($row = mysql_fetch_assoc($res))
+		$result = array();
+		if(mysql_num_rows($res))
 		{
-			$result[] = $row;
+			return mysql_fetch_assoc($res);
 		}
+		
 		return $result;
 	}
 
