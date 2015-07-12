@@ -1,7 +1,7 @@
 <?php
 define("HOST","localhost");
 define("USER","root");
-define("PASSWORD","");
+define("PASSWORD","123456");
 define("DBNAME","url_shortener");
 ?>
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
