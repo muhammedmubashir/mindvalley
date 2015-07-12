@@ -90,6 +90,10 @@ if(count($_POST))
 			}
 		}
 	}
+	else
+	{
+		header("Location: show_error.php");
+	}
 }
 /*
 $obj = new tinyUrl();
