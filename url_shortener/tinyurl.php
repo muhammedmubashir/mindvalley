@@ -30,31 +30,11 @@ class tinyUrl extends db_manager
 		return false;
 	}
 
-	function get_actual_url()
+	function create_tiny_url()
 	{
-		$where = array("shortcode"=>$this->tiny_url);
-		$result = $this->get("urls","*",$where);
-		if(count($result))
-		{
-			return $result['actual_url'];
-		}
-		return false;
+		return true;
 	}
 
-	function create_tiny_url()
-	{	
-		$code = $this->generate_random_string(6);
-		$data['actual_url'] = $this->long_url;
-		$data['shortcode'] = $code;
-		$data['add_date'] = date("Y-m-d h:i:s");
-		$data['status'] = "1";
-		
-		if($this->insert("urls",$data))
-		{
-			return $code;
-		}
-		return false;
-	}
 
 	function generate_random_string($length = 8) 
 	{
@@ -80,16 +60,18 @@ if(count($_POST))
 	{
 		if($tiny_url->already_exist())
 		{
-			header("Location: show_url.php?tiny_url=".$tiny_url->tiny_url);
+			return $tiny_url->tiny_url;
 		}
 		else
 		{
-			$tiny_url->tiny_url = $tiny_url->create_tiny_url();
-			{
-				header("Location: show_url.php?tiny_url=".$tiny_url->tiny_url);
-			}
+			$tiny_url->create_tiny_url();
+
 		}
 	}
+
+
+
+
 }
 /*
 $obj = new tinyUrl();
