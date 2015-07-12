@@ -46,7 +46,7 @@ class db_manager
 			$sql .= " AND $condition";
 		}
 
-		echo $sql;
+		//echo $sql;
 
 		$res = $this->query($sql);
 		$result = array();
@@ -61,7 +61,9 @@ class db_manager
 	function insert($table, $data)
 	{
 		$keys = array_keys( $data );
-		$sql  = 'INSERT INTO ' . $table . ' (' . implode( ', ', $keys ) . ') VALUES (' . implode( ',', $data ) . ')';
+		$values = "'".implode( "','", $data )."'";
+		$sql  = 'INSERT INTO ' . $table . ' (' . implode( ', ', $keys ) . ') VALUES (' .$values. ')';
+		//die;
 		return $this->query( $sql, $data ); 
 	}
 

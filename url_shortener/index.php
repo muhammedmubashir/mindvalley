@@ -1,3 +1,28 @@
+<?php
+
+// echo "<pre>";
+// print_r($_GET);
+// echo "</pre>";
+
+$code = htmlentities($_GET['code']);
+if($code != "" && strlen($code) == 6)
+{
+	require_once("tinyurl.php");
+	$tiny_url = new tinyUrl();
+	$tiny_url->tiny_url = $code;
+	
+	$actual_url = $tiny_url->get_actual_url();
+	if($actual_url !== false)
+	{
+		header("Location: $actual_url");
+	}
+	else
+	{
+		header("Location: show_error.php");
+	}
+}
+	
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,7 +52,6 @@
 					</div> 
 				</li>
 				<li class="buttons">
-				    <input type="hidden" name="form_id" value="1031365" />
 					<input id="saveForm" class="button_text" type="submit" name="submit" value="Submit" />
 				</li>
 			</ul>
